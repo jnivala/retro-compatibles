@@ -1,4 +1,4 @@
-# renova-compatibles
+# retro-compatibles
 
 Attempts to produce some Renova compatible low voltage socket faceplates.
 
