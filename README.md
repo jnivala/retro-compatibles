@@ -1,6 +1,6 @@
 # retro-compatibles
 
-Attempts to produce some Renova compatible low voltage socket faceplates.
+Attempts to produce some Renova compatible electrical installation items.
 
 ## Modules
 
