@@ -36,4 +36,4 @@ Object shown in images was printed with 0.10 mm layer thickness, infill was 60 %
 
 ## Notes
 
-RJ45 functionality needs keystone.scad from https://raw.githubusercontent.com/glennswest/switchfector/master/keystone.scad placed  in resources subdirectory.
+Keystone module is implemented by https://raw.githubusercontent.com/glennswest/switchfector/master/keystone.scad. It is placed  in resources subdirectory.
