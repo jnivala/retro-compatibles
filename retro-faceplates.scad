@@ -165,7 +165,7 @@ module keystoneVolumeBlockNormalized() {
 
 module retroKeystonePlate()
 {
-    keystoneOff = 8.35;
+    keystoneOff = 8.45; // Initially 8.3 but keystones were too close to each other.
     screwOff = 20.75;  // Screw offset from center.
     smallpad = 0.01;
     difference()
