@@ -50,13 +50,20 @@ module arc(radius, angles, width = 1, fn = 24) {
 translate([tr, 0, 0])
     arc(r, [0, 66], 2, $fn);
 
+
 // Yläpyöristys
+hull()
+{
 translate([innerr+rround, h-rround])
 difference()
 {
     circle(r=rround);
     translate([-rround-pad, -rround-pad])
         square([rround*2+pad*2, rround]);
+}
+//Pyöristys: saumaton jatkumo kaaren kanssa.
+translate([tr, 0, 1])
+    arc(r, [62, 66], 2, $fn);
 }
 
 // Sisänosto
