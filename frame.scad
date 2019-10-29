@@ -3,7 +3,7 @@
 // sink=11
 // Inner diameter = 51.9
 // According to circle diam=95, perhaps a bit elliptic
-$fn=60;
+$fn=180;
 r=15;
 ct=2;
 lpad=1;
@@ -16,24 +16,29 @@ drop=r-h;
 innerr=59.1/2;
 pad=0.1;
 
-translate([31.5, -drop, 0])
+tr=26.3;
+
+translate([tr, -drop+0.85, 0])
 difference()
 {
         circle(r=r);
         circle(r=r-ct);
-        mirror([1, 0, 0])
-            square(r+lpad);
+//        mirror([1, 0, 0])
+//            square(r+lpad);
         mirror([0, 1, 0])
             square(r+lpad);
         mirror([1, 1, 0])
             square(r+lpad);
+        translate([-tr, 0])
+            square([innerr+ct, 20]);
+
 }
-translate([innerr+rround, h-rround, 0])
+translate([innerr+rround, h-rround-0.1, 0])
     circle(r=rround);
 difference()
 {
     translate([innerr, h-sink, 0])
-        square([ct, sink]);
+        square([ct, sink-rround]);
     translate([innerr-pad, h-rround])
         square(rround+pad);
 }
