@@ -63,19 +63,11 @@ difference()
     translate([-rround-pad, -rround-pad])
         square([rround*2+pad*2, rround]);
 }
-//}
 
-//// Yläpyöristys
-//difference()
-//{
-//    circle(r=rround);
-//    translate([-rround-pad, -rround-pad])
-//        square([rround*2+pad*2, rround]);
-//}
-
-translate([0, 0, 1])
+// Sisänosto
+translate([0, 0, 0])
     translate([innerr, h-sink, 0])
-        square([ct, sink]);
+        square([ct, sink-rround]);
 
 translate([0, 0, 1])
     square([lowerr, ct]);
