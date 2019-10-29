@@ -48,12 +48,7 @@ module arc(radius, angles, width = 1, fn = 24) {
 
 // Sivukaari
 translate([tr, 0, 0])
-    difference()
-{
     arc(r, [0, 66], 2, $fn);
-//    circle(r-ct);
-}
-//}
 
 // Yläpyöristys
 translate([innerr+rround, h-rround])
