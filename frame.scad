@@ -15,8 +15,8 @@ lowerr=82.5/2;
 innerr=59.1/2;
 pad=0.1;
 
-r=14.3;
-tr=25.1;
+r=16.29;
+tr=25.00;
 
 drop=r-h;
 
@@ -39,53 +39,43 @@ module sector(radius, angles, fn = 24) {
 
 module arc(radius, angles, width = 1, fn = 24) {
     //smallpad=0.01;
-    
     difference() {
-        sector(radius + width, angles, fn);
+        sector(radius, angles, fn);
         // If sector, it would flicker.
-        circle(r=radius, $fn=fn);
+        circle(r=radius-width, $fn=fn);
     }
 }
 
+// Sivukaari
 translate([tr, 0, 0])
+    difference()
+{
     arc(r, [0, 66], 2, $fn);
-
-//translate([tr, -drop+0.85, 0])
-//difference()
-//{
-//        circle(r=r);
-//        circle(r=r-ct);
-////        mirror([1, 0, 0])
-////            square(r+lpad);
-//        mirror([0, 1, 0])
-//            square(r+lpad);
-//        mirror([1, 1, 0])
-//            square(r+lpad);
-//        translate([-tr, 0])
-//            square([innerr+ct, 20]);
-//
+//    circle(r-ct);
+}
 //}
-translate([innerr+rround, h-rround, 0])
+
+// Yläpyöristys
+translate([innerr+rround, h-rround])
+difference()
+{
     circle(r=rround);
+    translate([-rround-pad, -rround-pad])
+        square([rround*2+pad*2, rround]);
+}
+//}
+
+//// Yläpyöristys
 //difference()
 //{
-//    translate([innerr, h-sink, 0])
-//        square([ct, sink-rround]);
-////    translate([innerr-pad, h-rround])
-////       square(rround+pad);
+//    circle(r=rround);
+//    translate([-rround-pad, -rround-pad])
+//        square([rround*2+pad*2, rround]);
 //}
 
 translate([0, 0, 1])
     translate([innerr, h-sink, 0])
         square([ct, sink]);
 
-
-//translate([0, 0, 1])
-//    translate([innerr-pad, h])
-//       square(rround+pad);
-
-
 translate([0, 0, 1])
     square([lowerr, ct]);
-
-//arc(r, [0, 90], 2, $fn);
