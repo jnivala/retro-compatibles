@@ -20,6 +20,11 @@ tr=25.00;
 
 drop=r-h;
 
+
+lipr=1;
+lipt=1.5;
+lipw=1.5;
+
 module sector(radius, angles, fn = 24) {
     r = radius / cos(180 / fn);
     step = -360 / fn;
@@ -47,29 +52,56 @@ module arc(radius, angles, width = 1, fn = 24) {
 }
 
 // Sivukaari
-translate([tr, 0, 0])
-    arc(r, [0, 66], 2, $fn);
 
-
-// Yläpyöristys
-hull()
-{
-translate([innerr+rround, h-rround])
+rotate_extrude()
 difference()
 {
-    circle(r=rround);
-    translate([-rround-pad, -rround-pad])
-        square([rround*2+pad*2, rround]);
-}
-//Pyöristys: saumaton jatkumo kaaren kanssa.
-translate([tr, 0, 1])
-    arc(r, [62, 66], 2, $fn);
-}
+    union()
+    {
 
-// Sisänosto
-translate([0, 0, 0])
-    translate([innerr, h-sink, 0])
-        square([ct, sink-rround]);
+        // Side arc
+        translate([tr, 0, 0])
+            arc(r, [2, 63], 2, $fn);
 
-translate([0, 0, 1])
-    square([lowerr, ct]);
+        // Lower block
+        translate([lowerr-ct, 0, 0])
+            square([ct+pad, 1]);
+
+        // Yläpyöristys
+        hull()
+        {
+            union()
+            {
+                translate([innerr+rround, h-rround])
+                    difference()
+                    {
+                        circle(r=rround);
+                        translate([-rround-pad, -rround-pad])
+                            square([rround*2+pad*2, rround]);
+                    }
+                //Pyöristys: saumaton jatkumo kaaren kanssa.
+                translate([tr, 0, 0])
+                    arc(r, [62, 66], 2, $fn);
+            }
+        }
+        
+        // Sisänosto
+        translate([innerr, h-sink-lipt+lipr, 0])
+            square([ct, sink-rround+lipt-lipr]);
+
+        // Sisähuuli
+         translate([innerr-lipw, h-sink-lipt, 0])
+                square([ct+lipw-lipr, lipt]);
+
+        // Sisähuulen pyöristys
+        translate([innerr-lipw+ct+lipr/2, h-sink-lipr/2, 0])
+                circle(r=lipr);
+    }    
+    // Outer cut
+    translate([lowerr, -pad, 0])
+        square([ct, 2+pad]);
+
+    // Inner cut
+    translate([lowerr-ct-0.5-pad, -pad, 0])
+        square([1+pad, 1.5+pad]);
+}
