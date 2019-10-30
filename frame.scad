@@ -51,8 +51,6 @@ module arc(radius, angles, width = 1, fn = 24) {
     }
 }
 
-// Sivukaari
-
 rotate_extrude()
 difference()
 {
@@ -61,7 +59,7 @@ difference()
 
         // Side arc
         translate([tr, 0, 0])
-            arc(r, [2, 63], 2, $fn);
+            arc(r, [2, 63], ct, $fn);
 
         // Lower block
         translate([lowerr-ct, 0, 0])
