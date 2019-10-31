@@ -5,25 +5,6 @@
 // According to circle diam=95, perhaps a bit elliptic
 $fn=180;
 ct=2;
-lpad=1;
-h=15;
-sink=11;
-rround=1.5;
-
-lowerr=82.5/2;
-
-innerr=59.1/2;
-pad=0.1;
-
-r=16.29;
-tr=25.00;
-
-drop=r-h;
-
-
-lipr=1;
-lipt=1.5;
-lipw=1.5;
 
 module sector(radius, angles, fn = 24) {
     r = radius / cos(180 / fn);
@@ -51,55 +32,73 @@ module arc(radius, angles, width = 1, fn = 24) {
     }
 }
 
-rotate_extrude()
-difference()
+module retroFrame()
 {
-    union()
+    h=15; // Height of item
+    sink=11; // Sink of "cup"
+    rround=1.5; // Upper rounding radius
+    lowerr=82.5/2; // Lower radius
+    innerr=59.1/2; // Inner radius
+    pad=0.1; // Used to maintain manifold
+    r=16.29; // Radius of side
+    tr=lowerr-16.25; // Offset for side arc
+    lipr=1; // Radius of lip rounding
+    lipt=1.5; // Lip thickness
+    lipw=1.5; // Lip width
+
+
+    //rotate_extrude()
+    difference()
     {
-
-        // Side arc
-        translate([tr, 0, 0])
-            arc(r, [2, 63], ct, $fn);
-
-        // Lower block
-        translate([lowerr-ct, 0, 0])
-            square([ct+pad, 1]);
-
-        // Yläpyöristys
-        hull()
+        union()
         {
-            union()
+
+            // Side arc
+            translate([tr, 0, 0])
+                arc(r, [2, 63], ct, $fn);
+
+            // Lower block
+            translate([lowerr-ct, 0, 0])
+                square([ct+pad, 1]);
+
+            // Yläpyöristys
+            hull()
             {
-                translate([innerr+rround, h-rround])
-                    difference()
-                    {
-                        circle(r=rround);
-                        translate([-rround-pad, -rround-pad])
-                            square([rround*2+pad*2, rround]);
-                    }
-                //Pyöristys: saumaton jatkumo kaaren kanssa.
-                translate([tr, 0, 0])
-                    arc(r, [62, 66], 2, $fn);
+                union()
+                {
+                    translate([innerr+rround, h-rround])
+                        difference()
+                        {
+                            circle(r=rround);
+                            translate([-rround-pad, -rround-pad])
+                                square([rround*2+pad*2, rround]);
+                        }
+                    //Pyöristys: saumaton jatkumo kaaren kanssa.
+                    translate([tr, 0, 0])
+                        arc(r, [62, 66], 2, $fn);
+                }
             }
-        }
-        
-        // Sisänosto
-        translate([innerr, h-sink-lipt+lipr, 0])
-            square([ct, sink-rround+lipt-lipr]);
+            
+            // Sisänosto
+            translate([innerr, h-sink-lipt+lipr, 0])
+                square([ct, sink-rround+lipt-lipr]);
 
-        // Sisähuuli
-         translate([innerr-lipw, h-sink-lipt, 0])
-                square([ct+lipw-lipr, lipt]);
+            // Sisähuuli
+             translate([innerr-lipw, h-sink-lipt, 0])
+                    square([ct+lipw-lipr, lipt]);
 
-        // Sisähuulen pyöristys
-        translate([innerr-lipw+ct+lipr/2, h-sink-lipr/2, 0])
-                circle(r=lipr);
-    }    
-    // Outer cut
-    translate([lowerr, -pad, 0])
-        square([ct, 2+pad]);
+            // Sisähuulen pyöristys
+            translate([innerr-lipw+ct+lipr/2, h-sink-lipr/2, 0])
+                    circle(r=lipr);
+        }    
+        // Outer cut
+        translate([lowerr, -pad, 0])
+            square([ct, 2+pad]);
 
-    // Inner cut
-    translate([lowerr-ct-0.5-pad, -pad, 0])
-        square([1+pad, 1.5+pad]);
+        // Inner cut
+        translate([lowerr-ct-0.5-pad, -pad, 0])
+            square([1+pad, 1.5+pad]);
+    }
 }
+
+retroFrame();
