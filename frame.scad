@@ -46,12 +46,11 @@ module retroFrame()
     lipt=1.5; // Lip thickness
     lipw=1.5; // Lip width
 
-    //rotate_extrude()
+    rotate_extrude()
     difference()
     {
         union()
         {
-
             // Side arc
             translate([tr, 0, 0])
                 arc(r, [2, 63], ct, $fn);
@@ -60,7 +59,7 @@ module retroFrame()
             translate([lowerr-ct, 0, 0])
                 square([ct+pad, 1]);
 
-            // Yläpyöristys
+            // Upper rounding
             hull()
             {
                 union()
@@ -72,21 +71,21 @@ module retroFrame()
                             translate([-rround-pad, -rround-pad])
                                 square([rround*2+pad*2, rround]);
                         }
-                    //Pyöristys: saumaton jatkumo kaaren kanssa.
+                    // Seamless rounding with arc
                     translate([tr, 0, 0])
                         arc(r, [62, 66], 2, $fn);
                 }
             }
             
-            // Sisänosto
+            // Inner lift
             translate([innerr, h-sink-lipt+lipr, 0])
                 square([ct, sink-rround+lipt-lipr]);
 
-            // Sisähuuli
-             translate([innerr-lipw, h-sink-lipt, 0])
+            // Inner lip
+            translate([innerr-lipw, h-sink-lipt, 0])
                     square([ct+lipw-lipr, lipt]);
 
-            // Sisähuulen pyöristys
+            // Inner lip rounding
             translate([innerr+lipr, h-sink-lipt+lipr, 0])
                     circle(r=lipr);
 
