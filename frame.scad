@@ -46,7 +46,6 @@ module retroFrame()
     lipt=1.5; // Lip thickness
     lipw=1.5; // Lip width
 
-
     //rotate_extrude()
     difference()
     {
