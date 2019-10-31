@@ -1,0 +1,8 @@
+Frame15, 0.1mm, 60 %: 5 h 57 min
+Frame15, 0.1mm, 60 %, adaptive 0.10 max variation: 4 h 0 min
+Frame15, 0.1mm, 60 %, adaptive 0.15 max variation: 3 h 36 min
+Frame20, 0.1mm, 60 %: 6 h 25 min
+Frame20, 0.1mm, 60 %, adaptive 0.10 max variation: 4 h 21 min
+Frame20, 0.1mm, 60 %, adaptive 0.15 max variation: 4 h 0 min
+retro-keystone-plate, 0.1mm, 60 %: 4 h 27 min
+retro-keystone-plate, 0.1mm, 60 %, adaptive 0.10 max variation: 2 h 50 min
