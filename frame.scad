@@ -88,8 +88,9 @@ module retroFrame()
                     square([ct+lipw-lipr, lipt]);
 
             // Sisähuulen pyöristys
-            translate([innerr-lipw+ct+lipr/2, h-sink-lipr/2, 0])
+            translate([innerr+lipr, h-sink-lipt+lipr, 0])
                     circle(r=lipr);
+
         }    
         // Outer cut
         translate([lowerr, -pad, 0])
