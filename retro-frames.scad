@@ -1,7 +1,7 @@
 // TODO: Details when ct=1.5
 
 $fn=180; // For fine result, use 180.
-ct=2; // Wall thickness. Could try 1.5, too.
+ct=1.5; // Wall thickness. Could try 1.5, too.
 
 module sector(radius, angles, fn = 24) {
     r = radius / cos(180 / fn);
@@ -84,7 +84,7 @@ module retroFrame()
 
             // Inner lip rounding
             translate([innerr+ct-lipr, h-sink-lipt+lipr, 0])
-                    circle(r=lipr);
+                sector(lipr, [270, 360], $fn);
 
         }    
         // Outer cut
