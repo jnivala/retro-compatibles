@@ -83,7 +83,7 @@ module retroFrame()
                     square([ct+lipw-lipr, lipt]);
 
             // Inner lip rounding
-            translate([innerr+lipr, h-sink-lipt+lipr, 0])
+            translate([innerr+ct-lipr, h-sink-lipt+lipr, 0])
                     circle(r=lipr);
 
         }    
