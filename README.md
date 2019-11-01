@@ -2,7 +2,7 @@
 
 Attempts to produce some Renova compatible electrical installation items.
 
-## Modules
+## Faceplates
 
 OpenSCAD file retro-faceplates.scad exposes the following modules.
 
@@ -33,6 +33,16 @@ Object shown in images was printed with 0.10 mm layer thickness, infill was 60 %
 ![Antenna faceplate 2](img/retroAntennaPlate2-1.jpg?raw=true "Antenna faceplate 2, bare module")
 
 ![Antenna faceplate 2](img/retroAntennaPlate2-2.jpg?raw=true "Antenna faceplate 2, module inserted to frame")
+
+## Frames
+
+OpenSCAD file retro-frames.scad exposes the following module.
+
+### retroFrame
+
+A round frame. Printing is not tested.
+
+![Frame](img/frame1.png?raw=true "Round frame")
 
 ## Notes
 
