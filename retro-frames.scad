@@ -65,7 +65,7 @@ module retroFrame()
                        sector(rround, [180:180], $fn);
                    // Seamless rounding with arc
                     translate([tr, 0, 0])
-                        arc(r, [62, 66], 2, $fn);
+                        arc(r, [62, 66], ct, $fn);
                 }
             }
             
