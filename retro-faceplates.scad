@@ -39,7 +39,9 @@ module retroBasicPlate(
     }
 }     
 
-module retroLoweredPlate()
+module retroLoweredPlate(
+  wt = 2 // wall thickness
+)
 {
     union()
     {
@@ -47,20 +49,20 @@ module retroLoweredPlate()
         {
             union() {
                 // Face
-                translate([0, hei-ct-lowering, 0])
-                    square([rad-ct+pad, ct]);
+                translate([0, hei-wt-lowering, 0])
+                    square([rad-wt+pad, wt]);
                 // Side vertical part
-                translate([rad-ct, 0])
-                    square([ct, hei-r]);
+                translate([rad-wt, 0])
+                    square([wt, hei-r]);
                 // Top roundings
                 hull() {
-                    translate([rad-ct+r, hei-r])
+                    translate([rad-wt+r, hei-r])
                         circle(r);
                     translate([rad-r, hei-r])
                         circle(r);
                 }
                 // Inside rounding
-                translate([rad-ct-r, hei-lowering])
+                translate([rad-wt-r, hei-lowering])
                     difference() {
                         translate([0, 0-pad, 0])
                             square(r+pad);
@@ -73,7 +75,9 @@ module retroLoweredPlate()
     }
 }
 
-module retroAntennaPlate()
+module retroAntennaPlate(
+  wt = 2 // wall thickness
+)
 {
     antholerad = (13+1)/2;
     antholeoffset = 15;
@@ -87,7 +91,7 @@ module retroAntennaPlate()
         // Base plate
         union()
         {
-            retroLoweredPlate();
+            retroLoweredPlate(wt);
             shortPin();
             // Labels
             a = [
@@ -110,8 +114,8 @@ module retroAntennaPlate()
         }
         // Connector holes
         for (offset = [-antholeoffset, antholeoffset]){
-            translate ([offset, 0, hei-lowering-ct-pad])
-                cylinder(h = ct+(pad*2), r = antholerad,
+            translate ([offset, 0, hei-lowering-wt-pad])
+                cylinder(h = wt+(pad*2), r = antholerad,
                     center = false, $fn=45);
         }
         translate([0, 0, -lowering])
@@ -234,6 +238,8 @@ module screwHole() {
 
 module tallPin() {
     pinrad1 = 3; // 6/2
+    // Was: y2=totalh-t+pad; // 7.9
+    // Was: x2=3.55; // 7.1/2
     pinrad2 = 3.67532;
     ph=totalh-pad;
     footrad1=2;
@@ -262,16 +268,19 @@ function line_x_at_y(x1, y1, x2, y2, y3) =
  * Short pin with same cone angle as in tallPin().
  */
 module shortPin() {
+    t=2;
+    
     y1=0;
     x1=3; // 6/2
-    y2=totalh-ct+pad; // 7.9
+    y2=totalh-t+pad; // 7.9
     x2=3.55; // 7.1/2
     y3=y2-lowering;
+
     x3 = line_x_at_y(x1, y1, x2, y2, y3);
-    
+   
     screwPinSmooth = 12;
     difference() {
-        translate ([0, 0, -ct+2*pad]) {
+        translate ([0, 0, -t+2*pad]) {
             cylinder(h = y3, r1 = x1, r2 = x3,
                 center = false, $fn=screwPinSmooth);
         }
@@ -292,6 +301,30 @@ module sideTabs()
         }
     }
 }
+
+
+/*TODO
+module shortPinx() {
+    t=2;
+    
+    y1=0;
+    x1=3; // 6/2
+    y2=totalh-pad; // 7.9
+    x2=3.67532; // 7.1/2
+    y3=y2-lowering;
+
+    x3 = line_x_at_y(x1, y1, x2, y2, y3);
+    
+    screwPinSmooth = 12;
+    difference() {
+        translate ([0, 0, -hei+lowering]) {
+            cylinder(h = y3, r1 = x1, r2 = x3,
+                center = false, $fn=screwPinSmooth);
+        }
+    }
+}
+*/
+
 
 //retroAntennaPlate();
 //retroKeystonePlate();
