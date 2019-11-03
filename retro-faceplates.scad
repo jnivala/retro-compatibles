@@ -4,12 +4,13 @@ $fn=180; // 180 has been used for prints.
 hei=8;
 totalh=9.8;
 rad=51.75/2;
-ct=2;
 r=0.5;
 pad=0.1;
 lowering=4;
 
-module retroBasicPlate()
+module retroBasicPlate(
+  wt=2 // wall thickness
+)
 {
     union()
     {
@@ -17,16 +18,16 @@ module retroBasicPlate()
         {
             union() {
                 // Face
-                translate([0, hei-ct, 0])
-                    square([rad-r, ct]);
+                translate([0, hei-wt, 0])
+                    square([rad-r, wt]);
                 // Side vertical
-                translate([rad-ct, 0])
-                    square([ct, hei-r]);
+                translate([rad-wt, 0])
+                    square([wt, hei-r]);
                 // Side rounding
                 translate([rad-r, hei-r, 0])
                     circle(r);
                 // Inside rounding
-                translate([rad-ct-r, hei-ct-r, 0]) {
+                translate([rad-wt-r, hei-wt-r, 0]) {
                     difference() {
                         square(r+pad);
                         circle(r=r);
@@ -36,7 +37,7 @@ module retroBasicPlate()
         }
         sideTabs();
     }
-}           
+}     
 
 module retroLoweredPlate()
 {
@@ -166,18 +167,21 @@ module keystoneVolumeBlockNormalized() {
             cube([14.9, 22.14, 9.9]);
 }
 
-module retroKeystonePlate()
+module retroKeystonePlate(
+    wt = 1.5 // Wall thickness
+)
 {
     keystoneOff = 8.45; // Initially 8.3 but keystones were too close to each other.
     screwOff = 20.75;  // Screw offset from center.
     smallpad = 0.01;
+    
     difference()
     {
         union()
         {
             difference()
             {
-                retroBasicPlate();
+                retroBasicPlate(wt);
                 for (offset = [-keystoneOff, keystoneOff])
                     translate([offset, 0, -smallpad])
                         keystoneVolumeBlockNormalized();
