@@ -271,16 +271,16 @@ module shortPin() {
     t=2;
     
     y1=0;
-    x1=3; // 6/2
-    y2=totalh-t+pad; // 7.9
-    x2=3.55; // 7.1/2
+    x1=3;
+    y2=totalh-pad;
+    x2=3.67532;
     y3=y2-lowering;
 
     x3 = line_x_at_y(x1, y1, x2, y2, y3);
-   
+    
     screwPinSmooth = 12;
     difference() {
-        translate ([0, 0, -t+2*pad]) {
+        translate ([0, 0, hei-totalh]) {
             cylinder(h = y3, r1 = x1, r2 = x3,
                 center = false, $fn=screwPinSmooth);
         }
@@ -302,28 +302,7 @@ module sideTabs()
     }
 }
 
-
-/*TODO
-module shortPinx() {
-    t=2;
-    
-    y1=0;
-    x1=3; // 6/2
-    y2=totalh-pad; // 7.9
-    x2=3.67532; // 7.1/2
-    y3=y2-lowering;
-
-    x3 = line_x_at_y(x1, y1, x2, y2, y3);
-    
-    screwPinSmooth = 12;
-    difference() {
-        translate ([0, 0, -hei+lowering]) {
-            cylinder(h = y3, r1 = x1, r2 = x3,
-                center = false, $fn=screwPinSmooth);
-        }
-    }
-}
-*/
+shortPin();
 
 
 //retroAntennaPlate();
