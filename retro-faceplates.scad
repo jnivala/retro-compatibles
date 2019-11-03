@@ -148,17 +148,20 @@ module keystoneReceiverFixed()
 }
 
 module keystoneFaceHole() {
-    translate([(-14.9/2), -16.25/2, hei-ct])
-    	cube([14.9, 16.25, ct+2*pad]);
+    t=2;
+    translate([(-14.9/2), -16.25/2, hei-t])
+    	cube([14.9, 16.25, t+2*pad]);
 }
 
 module keystoneReceiverNormalized() {
-    translate([-18/2, (-(22.14+2.6)/2)+1.645, -ct+pad])
+    t=2;
+    translate([-18/2, (-(22.14+2.6)/2)+1.645, -t+pad])
         keystoneReceiverFixed();    
 }
 
 module keystoneVolumeBlockNormalized() {
-    translate([-18/2, (-(22.14+2.6)/2)+1.645, -ct+pad])
+    t=2;
+    translate([-18/2, (-(22.14+2.6)/2)+1.645, -t+pad])
         translate([1.55, 1.43, 0])
             cube([14.9, 22.14, 9.9]);
 }
@@ -227,12 +230,24 @@ module screwHole() {
 
 module tallPin() {
     pinrad1 = 3; // 6/2
-    pinrad2 = 3.55; // 7.1/2
-    screwPinSmooth = 12;
-    translate ([0, 0, -ct+2*pad]) {
-        cylinder(h = totalh-ct+pad, r1 = pinrad1, r2 = pinrad2,
-            center = false, $fn=screwPinSmooth);
-    }
+    pinrad2 = 3.67532;
+    ph=totalh-pad;
+    footrad1=2;
+    footrad2=4.5;
+    footh=4;
+   
+    translate ([0, 0, hei-totalh])
+        rotate_extrude()
+        {
+            union()
+            {
+                // Pin
+                polygon(points=[[0,0],[0,ph],[pinrad2,ph],[pinrad1,0]]);
+                // Foot
+                translate([0, ph-footh-1])
+                    polygon(points=[[0,0],[0,footh],[footrad2,footh],[footrad1,0]]);
+            }              
+        }
 }
 
 function line_x_at_y(x1, y1, x2, y2, y3) =
