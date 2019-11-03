@@ -10,19 +10,9 @@ OpenSCAD file retro-faceplates.scad exposes the following modules.
 
 2 x RJ45 faceplate with screw holes on sides.
 
-Object pictured represents a print from earlier version. The following issues have been addressed since but printing hasn't been tested:
-- Keystones are placed too close to each other. Perhaps 0.5..1 mm more distance would suffice.
-- There is a thin edge in the "upper part" of the keystone hole.
-- There is a gap around leftmost keystone hole. Perhaps keystone cut hole was too large or misplaced.
+Object shown in images was printed with 0.10 mm layer thickness, adaptive layers enabled. Infill was 60 %. 
 
-Object shown in images was printed with 0.15 mm layer thickness due to time constraints, infill was 60 %. 
-
-![2 x RJ45 faceplate 2](img/retro2rj45Plate2-1.jpg?raw=true "2 x RJ45 faceplate 2, module face up")
-
-![2 x RJ45 faceplate 2](img/retro2rj45Plate2-2.jpg?raw=true "2 x RJ45 faceplate 2, module face down")
-
-![2 x RJ45 faceplate 2](img/retro2rj45Plate2-3.jpg?raw=true "2 x RJ45 faceplate 2, module with keystones inserted, attached to box")
-
+![2 x RJ45 faceplate](img/retro2rj45Plate.jpg?raw=true "2 x RJ45 faceplate")
 
 ### retroAntennaPlate
 
