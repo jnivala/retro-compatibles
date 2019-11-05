@@ -268,23 +268,30 @@ function line_x_at_y(x1, y1, x2, y2, y3) =
  * Short pin with same cone angle as in tallPin().
  */
 module shortPin() {
-    t=2;
-    
     y1=0;
     x1=3;
     y2=totalh-pad;
-    x2=3.67532;
+    x2=3.67532; // tall pin radius.
     y3=y2-lowering;
 
     x3 = line_x_at_y(x1, y1, x2, y2, y3);
     
-    screwPinSmooth = 12;
-    difference() {
-        translate ([0, 0, hei-totalh]) {
-            cylinder(h = y3, r1 = x1, r2 = x3,
-                center = false, $fn=screwPinSmooth);
+    footrad1=2;
+    footrad2=4.5;
+    footh=4;
+
+    translate ([0, 0, hei-totalh])
+    rotate_extrude()
+    {
+        union()
+        {
+            // Pin
+            polygon(points=[[0,y1],[0,y3],[x3,y3],[x1,y1]]);
+            // Foot
+            translate([0, y3-footh-1])
+                polygon(points=[[0,0],[0,footh],[footrad2,footh],[footrad1,0]]);
         }
-    }
+     }
 }
 
 module sideTabs()
@@ -301,9 +308,6 @@ module sideTabs()
         }
     }
 }
-
-shortPin();
-
 
 //retroAntennaPlate();
 //retroKeystonePlate();
