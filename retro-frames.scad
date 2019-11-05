@@ -1,7 +1,7 @@
 // TODO: Details when ct=1.5
 
 $fn=180; // For fine result, use 180.
-ct=2.0; // Wall thickness. Could try 1.5, too.
+ct=1.5; // Wall thickness. Could try 2.0, too.
 
 module sector(radius, angles, fn = 24) {
     r = radius / cos(180 / fn);
@@ -56,18 +56,25 @@ module retroFrame()
             translate([lowerr-ct, 0, 0])
                 square([ct+pad, 1]);
 
-            // Upper rounding
+            // Upper rounding #1
             hull()
             {
                 union()
                 {
+                    // Rounding
                     translate([innerr+rround, h-rround])
-                       sector(rround, [180:180], $fn);
-                   // Seamless rounding with arc
+                       sector(rround, [40,90], $fn);
+                    // Seamless with arc part
                     translate([tr, 0, 0])
                         arc(r, [62, 66], ct, $fn);
                 }
             }
+            
+            // Upper rounding #2
+                    translate([innerr+rround, h-rround])
+                       sector(rround, [89,181], $fn);
+
+
             
             // Inner lift
             translate([innerr, h-sink-lipt+lipr, 0])
