@@ -46,7 +46,6 @@ module inner2d()
     h=15; // Height of item
     sink=11; // Sink of "cup"
     rround=1.5; // Upper rounding radius
-    lowerr=82.5/2; // Lower radius
     innerr=59.1/2; // Inner radius
     pad=0.1; // Used to maintain manifold
     lipr=1; // Radius of lip rounding
@@ -74,9 +73,6 @@ module inner2d()
             translate([innerr+ct-lipr, h-sink-lipt+lipr, 0])
                 sector(lipr, [270, 360], $fn);
         }
-        // Inner cut
-        translate([lowerr-ct-0.5-pad, -pad, 0])
-            square([1+pad, 1.5+pad]);
     }
 }
 
@@ -118,6 +114,9 @@ module outer2d()
                 }
             }
         }
+        // Inner cut
+        translate([lowerr-ct-0.5-pad, -pad, 0])
+            square([1+pad, 1.5+pad]);
         // Outer cut
         translate([lowerr, -pad, 0])
             square([ct, 2+pad]);
