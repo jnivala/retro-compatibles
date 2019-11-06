@@ -117,10 +117,10 @@ module outer2d()
                         arc(r, [62, 66], ct, $fn);
                 }
             }
-            // Outer cut
-            translate([lowerr, -pad, 0])
-                square([ct, 2+pad]);
         }
+        // Outer cut
+        translate([lowerr, -pad, 0])
+            square([ct, 2+pad]);
     }
 }
 
