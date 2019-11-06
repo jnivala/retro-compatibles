@@ -29,7 +29,7 @@ module arc(radius, angles, width = 1, fn = 24) {
     }
 }
 
-module retroFrame()
+module retroFrame(inner=1, outer=1)
 {
     h=15; // Height of item
     sink=11; // Sink of "cup"
@@ -43,60 +43,67 @@ module retroFrame()
     lipt=1.5; // Lip thickness
     lipw=1.5; // Lip width
 
-    rotate_extrude()
+    //rotate_extrude()
     difference()
     {
         union()
         {
-            // Side arc
-            translate([tr, 0, 0])
-                arc(r, [2, 63], ct, $fn);
-
-            // Lower block
-            translate([lowerr-ct, 0, 0])
-                square([ct+pad, 1]);
-
-            // Upper rounding #1
-            hull()
+            if (outer==1)
             {
-                union()
+                // Side arc
+                translate([tr, 0, 0])
+                    arc(r, [2, 63], ct, $fn);
+
+                // Lower block
+                translate([lowerr-ct, 0, 0])
+                    square([ct+pad, 1]);
+
+                // Upper rounding #1
+                hull()
                 {
-                    // Rounding
-                    translate([innerr+rround, h-rround])
-                       sector(rround, [40,90], $fn);
-                    // Seamless with arc part
-                    translate([tr, 0, 0])
-                        arc(r, [62, 66], ct, $fn);
+                    union()
+                    {
+                        // Rounding
+                        translate([innerr+rround, h-rround])
+                           sector(rround, [40,91], $fn);
+                        // Seamless with arc part
+                        translate([tr, 0, 0])
+                            arc(r, [62, 66], ct, $fn);
+                    }
                 }
             }
-            
-            // Upper rounding #2
-                    translate([innerr+rround, h-rround])
-                       sector(rround, [89,181], $fn);
+            if (inner==1)
+            {
+                // Upper rounding #2
+                        translate([innerr+rround, h-rround])
+                           sector(rround, [89,181], $fn);
+                
+                // Inner lift
+                translate([innerr, h-sink-lipt+lipr, 0])
+                    square([ct, sink-rround+lipt-lipr]);
 
+                // Inner lip
+                translate([innerr-lipw, h-sink-lipt, 0])
+                        square([ct+lipw-lipr, lipt]);
 
-            
-            // Inner lift
-            translate([innerr, h-sink-lipt+lipr, 0])
-                square([ct, sink-rround+lipt-lipr]);
-
-            // Inner lip
-            translate([innerr-lipw, h-sink-lipt, 0])
-                    square([ct+lipw-lipr, lipt]);
-
-            // Inner lip rounding
-            translate([innerr+ct-lipr, h-sink-lipt+lipr, 0])
-                sector(lipr, [270, 360], $fn);
-
-        }    
-        // Outer cut
-        translate([lowerr, -pad, 0])
-            square([ct, 2+pad]);
-
-        // Inner cut
-        translate([lowerr-ct-0.5-pad, -pad, 0])
-            square([1+pad, 1.5+pad]);
+                // Inner lip rounding
+                translate([innerr+ct-lipr, h-sink-lipt+lipr, 0])
+                    sector(lipr, [270, 360], $fn);
+            }
+        }
+        if (outer==1)
+        {
+            // Outer cut
+            translate([lowerr, -pad, 0])
+                square([ct, 2+pad]);
+        }
+        if (inner==1)
+        {
+            // Inner cut
+            translate([lowerr-ct-0.5-pad, -pad, 0])
+                square([1+pad, 1.5+pad]);
+        }
     }
 }
 
-retroFrame();
+retroFrame(1, 1);
