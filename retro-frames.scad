@@ -123,4 +123,76 @@ module outer2d()
     }
 }
 
-retroFrame();
+module stuff()
+{
+
+translate([0, -102.5/2, 0])
+mirror([0, 0, 0])
+rotate_extrude(angle=180)
+    union()
+    {
+
+        inner2d();
+    }
+
+translate([0, 102.5/2, 0])
+mirror([0, 1, 0])
+rotate_extrude(angle=180)
+    union()
+    {
+
+        inner2d();
+    }
+
+
+
+
+translate([0, -102.5/2, 0])
+mirror([0, 1, 0])
+rotate_extrude(angle=180)
+    union()
+    {
+
+        inner2d();
+        outer2d();
+    }
+
+
+translate([0, 102.5/2, 0])
+rotate_extrude(angle=180)
+    union()
+    {
+
+        inner2d();
+        outer2d();
+    }
+
+
+mirror([1, 0, 0])
+rotate([90, 0, 0])
+linear_extrude(102.5+0.01, center=true)
+   outer2d();
+
+rotate([90, 0, 0])
+linear_extrude(102.5+0.01, center=true)
+   outer2d();
+
+translate([0, 0, 15-1.5])
+linear_extrude(1.5)
+difference()
+{
+    square([59.1+1.5*2+0.01*2, 102.5], center=true);
+    translate([0, 102.5/2])
+        circle(59.1/2+1.5);
+    translate([0, -102.5/2])
+        circle(59.1/2+1.5);
+
+}
+    
+}
+
+
+
+stuff();
+//
+//retroFrame();
