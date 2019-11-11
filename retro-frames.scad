@@ -123,7 +123,7 @@ module outer2d()
     }
 }
 
-module stuff()
+module retroDualFrame()
 {
 
 translate([0, -102.5/2, 0])
@@ -193,6 +193,6 @@ difference()
 
 
 
-stuff();
+retroDualFrame();
 //
 //retroFrame();
