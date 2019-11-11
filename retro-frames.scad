@@ -114,9 +114,12 @@ module outer2d()
                 }
             }
         }
-        // Inner cut
-        translate([lowerr-1.5-1.5-pad, -pad, 0])
-            square([1.5+pad, 1.5+pad]);
+//        // Inner cut -- straight
+//        translate([lowerr-1.5-1.5-pad, -pad, 0])
+//            square([1.5+pad, 1.5+pad]);
+        // Inner cut -- arc
+        translate([tr, 0, 0])
+            arc(r-1.5, [-1, 6], 2, $fn);        
         // Outer cut
         translate([lowerr, -pad, 0])
             square([ct, 2+pad]);
