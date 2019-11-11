@@ -29,18 +29,6 @@ module arc(radius, angles, width = 1, fn = 24) {
     }
 }
 
-module retroFrame()
-{
-    rotate_extrude()
-    {
-        union()
-        {
-            inner2d();
-            outer2d();
-        }
-    }
-}
-
 module inner2d()
 {
     h=15; // Height of item
@@ -126,72 +114,78 @@ module outer2d()
     }
 }
 
+module retroFrame()
+{
+    rotate_extrude()
+    {
+        union()
+        {
+            inner2d();
+            outer2d();
+        }
+    }
+}
+
 module retroDualFrame()
 {
-
-translate([0, -102.5/2, 0])
-mirror([0, 0, 0])
-rotate_extrude(angle=180)
-    union()
-    {
-
-        inner2d();
-    }
-
-translate([0, 102.5/2, 0])
-mirror([0, 1, 0])
-rotate_extrude(angle=180)
-    union()
-    {
-
-        inner2d();
-    }
-
-
-
-
-translate([0, -102.5/2, 0])
-mirror([0, 1, 0])
-rotate_extrude(angle=180)
-    union()
-    {
-
-        inner2d();
-        outer2d();
-    }
-
-
-translate([0, 102.5/2, 0])
-rotate_extrude(angle=180)
-    union()
-    {
-
-        inner2d();
-        outer2d();
-    }
-
-
-mirror([1, 0, 0])
-rotate([90, 0, 0])
-linear_extrude(102.5+0.01, center=true)
-   outer2d();
-
-rotate([90, 0, 0])
-linear_extrude(102.5+0.01, center=true)
-   outer2d();
-
-translate([0, 0, 15-1.5])
-linear_extrude(1.5)
-difference()
-{
-    square([59.1+1.5*2+0.01*2, 102.5], center=true);
-    translate([0, 102.5/2])
-        circle(59.1/2+1.5);
-    translate([0, -102.5/2])
-        circle(59.1/2+1.5);
-
-}
+    // TODO: shared variables
     
+    rounding=1.5;
+    height=15;
+    
+    // Inner circle #1
+    translate([0, -102.5/2, 0])
+        mirror([0, 0, 0])
+            rotate_extrude(angle=180)
+                inner2d();
+
+    // Inner circle #2
+    translate([0, 102.5/2, 0])
+        mirror([0, 1, 0])
+            rotate_extrude(angle=180)
+                inner2d();
+
+    // Outer half circle #1
+    translate([0, -102.5/2, 0])
+        mirror([0, 1, 0])
+            rotate_extrude(angle=180)
+                union()
+                {
+                    inner2d();
+                    outer2d();
+                }
+
+    // Outer half circle #2
+    translate([0, 102.5/2, 0])
+        rotate_extrude(angle=180)
+            union()
+            {
+                inner2d();
+                outer2d();
+            }
+
+    // Outer straight #1
+    mirror([1, 0, 0])
+        rotate([90, 0, 0])
+            linear_extrude(102.5+0.01, center=true)
+               outer2d();
+
+    // Outer straight #2
+    rotate([90, 0, 0])
+        linear_extrude(102.5+0.01, center=true)
+            outer2d();
+
+    // Top plane
+    translate([0, 0, height-ct])
+        linear_extrude(ct)
+            difference()
+            {
+                square([59.1+rounding*2+0.01*2, 102.5], center=true);
+                translate([0, 102.5/2])
+                    circle(59.1/2+rounding);
+                translate([0, -102.5/2])
+                    circle(59.1/2+rounding);
+            }    
 }
 
 retroDualFrame();
